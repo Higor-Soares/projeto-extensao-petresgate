@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetResgate</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .modal-detalhes {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+        .modal-detalhes.hidden {
+            display: none;
+        }
+        .modal-detalhes-conteudo {
+            width: 100%;
+            max-width: 700px;
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
+        }
+        .modal-detalhes-cabecalho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid #eee;
+            background: #fafafa;
+        }
+        .modal-detalhes-cabecalho h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        .modal-detalhes-cabecalho button {
+            border: none;
+            background: transparent;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #333;
+        }
+        .modal-detalhes-body {
+            padding: 24px;
+            display: grid;
+            gap: 18px;
+        }
+        .modal-detalhes-body img {
+            width: 100%;
+            border-radius: 14px;
+            object-fit: cover;
+            max-height: 360px;
+        }
+        .modal-detalhes-body p {
+            margin: 0;
+            line-height: 1.6;
+            color: #444;
+        }
+        .modal-detalhes-body .linha {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .modal-detalhes-body .linha span {
+            width: calc(50% - 10px);
+            min-width: 160px;
+            color: #555;
+        }
+        @media (max-width: 640px) {
+            .modal-detalhes-body .linha span {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-site">
+        <header class="cabecalho">
+            <div class="area-logo">
+                <div class="logo-pata" aria-label="Logo com pata">
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <circle cx="20" cy="20" r="7" fill="#e75b3a"/>
+                        <circle cx="32" cy="14" r="7" fill="#e75b3a"/>
+                        <circle cx="44" cy="14" r="7" fill="#e75b3a"/>
+                        <circle cx="52" cy="22" r="7" fill="#e75b3a"/>
+                        <path fill="#e75b3a" d="M28 30c6-4 12-4 18 0 6 5 10 12 4 20-4 6-9 8-13 8s-9-2-13-8c-6-8-2-15 4-20Z"/>
+                    </svg>
+                </div>
+                <span class="titulo-site">PetResgate</span>
+            </div>
+            <nav class="menu">
+                <a href="index.html" class="ativo">Início</a>
+                <a href="cadastrar.html">Cadastrar Perdido</a>
+                <a href="cadastrar-animal.html">Doar Animal</a>
+                <a href="busca.html">Buscar</a>
+                <a href="doacao-dinheiro.html">Ajudar com PIX</a>
+                <a href="login.html" class="botao-login">Login</a>
+            </nav>
+        </header>
+        <main>
+            <section class="secao-destaque">
+                <h1>Encontre, Adote ou Ajude<br>pets perdidos</h1>
+                <form class="caixa-busca" autocomplete="off">
+                    <input type="text" placeholder="Nome do pet ou cidade" aria-label="Nome do pet ou cidade">
+                    <button type="submit">Buscar pets</button>
+                </form>
+            </section>
+            <section class="secao-destaques">
+                <h2>Destaques de pets</h2>
+                <div class="grade-cards"></div>
+            </section>
+        </main>
+        <footer class="rodape">
+            <div class="rodape-esquerda">Contato</div>
+            <div class="rodape-centro">Direitos autorais</div>
+            <div class="rodape-direita">
+                <span class="icone"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a7.5 7.5 0 0 1 13 0"/></svg></span>
+                <span class="icone"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 15h8M8 12h8M8 9h8"/></svg></span>
+                <span class="icone"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8a6 6 0 0 1-8 0"/></svg></span>
+            </div>
+        </footer>
+    </div>
+    <div id="modalDetalhes" class="modal-detalhes hidden" aria-hidden="true">
+        <div class="modal-detalhes-conteudo" role="dialog" aria-modal="true" aria-labelledby="tituloModalDetalhes">
+            <div class="modal-detalhes-cabecalho">
+                <h3 id="tituloModalDetalhes">Detalhes do pet</h3>
+                <button type="button" id="fecharModal" aria-label="Fechar modal">×</button>
+            </div>
+            <div class="modal-detalhes-body" id="modalConteudo"></div>
+        </div>
+    </div>
+</body>
+<script type="module" src="js/main.js"></script>
+</html> 

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Animal para Doação - PetResgate</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container-site">
+        <header class="cabecalho">
+            <div class="area-logo">
+                <div class="logo-pata" aria-label="Logo com pata">
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <circle cx="20" cy="20" r="7" fill="#e75b3a"/>
+                        <circle cx="32" cy="14" r="7" fill="#e75b3a"/>
+                        <circle cx="44" cy="14" r="7" fill="#e75b3a"/>
+                        <circle cx="52" cy="22" r="7" fill="#e75b3a"/>
+                        <path fill="#e75b3a" d="M28 30c6-4 12-4 18 0 6 5 10 12 4 20-4 6-9 8-13 8s-9-2-13-8c-6-8-2-15 4-20Z"/>
+                    </svg>
+                </div>
+                <span class="titulo-site">PetResgate</span>
+            </div>
+            <nav class="menu">
+                <a href="index.html">Início</a>
+                <a href="cadastrar.html">Cadastrar Perdido</a>
+                <a href="cadastrar-animal.html" class="ativo">Doar Animal</a>
+                <a href="busca.html">Buscar</a>
+                <a href="doacao-dinheiro.html">Ajudar com PIX</a>
+                <a href="login.html" class="botao-login">Login</a>
+            </nav>
+        </header>
+        <main>
+            <section class="secao-formulario">
+                <h1>Cadastre o Animal para Doação</h1>
+                <p class="subtitulo">Ajude um animal a encontrar um novo lar. Preencha os dados abaixo.</p>
+                <form class="form-cadastro" id="formAnimal">
+                    <h3>Informações do Animal</h3>
+                    
+                    <label for="nomeAnimal">Nome do animal *</label>
+                    <input type="text" id="nomeAnimal" name="nomeAnimal" placeholder="Digite o nome do animal" required>
+
+                    <div class="grupo-duplo">
+                        <div>
+                            <label for="especie">Espécie *</label>
+                            <select id="especie" name="especie" required>
+                                <option value="">Selecione a espécie</option>
+                                <option value="cachorro">Cachorro</option>
+                                <option value="gato">Gato</option>
+                                <option value="coelho">Coelho</option>
+                                <option value="pássaro">Pássaro</option>
+                                <option value="roedor">Roedor</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="raca">Raça/Tipo *</label>
+                            <input type="text" id="raca" name="raca" placeholder="Ex: Poodle, Siamês..." required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-duplo">
+                        <div>
+                            <label for="idade">Idade (anos) *</label>
+                            <input type="number" id="idade" name="idade" min="0" step="0.5" placeholder="Ex: 2, 0.5" required>
+                        </div>
+                        <div>
+                            <label for="sexo">Sexo *</label>
+                            <select id="sexo" name="sexo" required>
+                                <option value="">Selecione</option>
+                                <option value="macho">Macho</option>
+                                <option value="femea">Fêmea</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label for="descricao">Descrição do animal *</label>
+                    <textarea id="descricao" name="descricao" placeholder="Descreva o temperamento, características especiais, necessidades de cuidados..." required></textarea>
+
+                    <label for="foto">Foto do animal *</label>
+                    <input type="file" id="foto" name="foto" accept="image/*" required>
+
+                    <h3>Informações de Saúde</h3>
+
+                    <div class="grupo-duplo">
+                        <div>
+                            <label for="vacinado">Vacinado? *</label>
+                            <select id="vacinado" name="vacinado" required>
+                                <option value="">Selecione</option>
+                                <option value="sim">Sim</option>
+                                <option value="nao">Não</option>
+                                <option value="parcial">Parcialmente</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="castrado">Castrado/Esterilizado? *</label>
+                            <select id="castrado" name="castrado" required>
+                                <option value="">Selecione</option>
+                                <option value="sim">Sim</option>
+                                <option value="nao">Não</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label for="problemasHealth">Problemas de saúde ou alergias conhecidas?</label>
+                    <textarea id="problemasHealth" name="problemasHealth" placeholder="Descreva qualquer problema de saúde ou alergia..."></textarea>
+
+                    <h3>Informações do Doador</h3>
+
+                    <label for="nomeDoador">Seu nome *</label>
+                    <input type="text" id="nomeDoador" name="nomeDoador" placeholder="Digite seu nome completo" required>
+
+                    <label for="telefone">Telefone *</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(XX) 99999-9999" required>
+
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+
+                    <label for="cidade">Cidade *</label>
+                    <input type="text" id="cidade" name="cidade" placeholder="Sua cidade" required>
+
+                    <label for="motivo">Por que está doando o animal? *</label>
+                    <textarea id="motivo" name="motivo" placeholder="Explique brevemente o motivo da doação..." required></textarea>
+
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="termos" name="termos" required>
+                        <label for="termos">Declaro que todas as informações são verdadeiras e autorizo o PetResgate a compartilhar estes dados com potenciais adotantes. *</label>
+                    </div>
+
+                    <button type="submit" class="botao-enviar">Cadastrar Animal</button>
+                </form>
+            </section>
+        </main>
+    </div>
+    <script src="js/cadastrar-animal.js"></script>
+</body>
+</html>

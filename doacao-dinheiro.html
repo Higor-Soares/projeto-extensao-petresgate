@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doação via PIX - PetResgate</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .container-doacao {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            padding: 0 40px 40px 40px;
+            flex-wrap: wrap;
+        }
+
+        .secao-doacao {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .secao-qr {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #e75b3a;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .qr-code-container img {
+            width: 280px;
+            height: 280px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .qr-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .qr-info strong {
+            color: #e75b3a;
+            font-size: 16px;
+        }
+
+        .botao-copiar {
+            background: #e75b3a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .botao-copiar:hover {
+            background: #d63d1d;
+        }
+
+        .chave-pix-container {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            word-break: break-all;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .info-doacao {
+            background: #fff8f3;
+            padding: 20px;
+            border-left: 4px solid #e75b3a;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .info-doacao p {
+            margin: 10px 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .info-doacao strong {
+            color: #e75b3a;
+        }
+
+        .lista-causas {
+            margin-top: 30px;
+        }
+
+        .lista-causas h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .causa-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #e75b3a;
+        }
+
+        .causa-item strong {
+            color: #e75b3a;
+        }
+
+        .forma-pagamento {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid #ececec;
+        }
+
+        .forma-pagamento h3 {
+            margin-top: 0;
+            color: #e75b3a;
+        }
+
+        @media (max-width: 768px) {
+            .container-doacao {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .secao-qr {
+                order: -1;
+            }
+
+            .qr-code-container img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-site">
+        <header class="cabecalho">
+            <div class="area-logo">
+                <div class="logo-pata" aria-label="Logo com pata">
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <circle cx="20" cy="20" r="7" fill="#e75b3a"/>
+                        <circle cx="32" cy="14" r="7" fill="#e75b3a"/>
+                        <circle cx="44" cy="14" r="7" fill="#e75b3a"/>
+                        <circle cx="52" cy="22" r="7" fill="#e75b3a"/>
+                        <path fill="#e75b3a" d="M28 30c6-4 12-4 18 0 6 5 10 12 4 20-4 6-9 8-13 8s-9-2-13-8c-6-8-2-15 4-20Z"/>
+                    </svg>
+                </div>
+                <span class="titulo-site">PetResgate</span>
+            </div>
+            <nav class="menu">
+                <a href="index.html">Início</a>
+                <a href="cadastrar.html">Cadastrar Perdido</a>
+                <a href="cadastrar-animal.html">Doar Animal</a>
+                <a href="busca.html">Buscar</a>
+                <a href="doacao-dinheiro.html" class="ativo">Ajudar com PIX</a>
+                <a href="login.html" class="botao-login">Login</a>
+            </nav>
+        </header>
+        <main>
+            <section class="secao-formulario">
+                <h1>Ajude Animais em Necessidade</h1>
+                <p class="subtitulo">Sua doação faz a diferença na vida de muitos animais. Contribua via PIX e ajude o PetResgate a resgatar e cuidar de pets necessitados.</p>
+            </section>
+
+            <div class="container-doacao">
+                <div class="secao-doacao">
+                    <div class="info-doacao">
+                        <h3>💖 Por que Doar?</h3>
+                        <p>O PetResgate trabalha diariamente para resgatar, cuidar e encontrar novos lares para animais abandonados e perdidos. Sua doação ajuda a custear:</p>
+                        <ul>
+                            <li><strong>Alimentação</strong> - Ração de qualidade para os animais resgatados</li>
+                            <li><strong>Saúde</strong> - Vacinas, castração e consultas veterinárias</li>
+                            <li><strong>Abrigo</strong> - Manutenção de locais seguros e confortáveis</li>
+                            <li><strong>Transporte</strong> - Para resgates de animais em situação de rua</li>
+                            <li><strong>Educação</strong> - Treinamento e socialização dos animais</li>
+                        </ul>
+                    </div>
+
+                    <div class="forma-pagamento">
+                        <h3>Como Funciona a Doação via PIX?</h3>
+                        <p>Escanear o QR Code com seu celular e fazer a transferência é muito simples:</p>
+                        <ol style="line-height: 1.8;">
+                            <li>Abra o aplicativo do seu banco ou instituição financeira</li>
+                            <li>Escolha a opção "PIX" e após "Escanear QR Code"</li>
+                            <li>Escaneie o QR Code ao lado</li>
+                            <li>Confirme o valor e complete a transação</li>
+                            <li>Pronto! Sua doação foi confirmada instantaneamente</li>
+                        </ol>
+                    </div>
+
+                    <div class="lista-causas">
+                        <h3>Histórias que sua Doação Pode Mudar</h3>
+                        
+                        <div class="causa-item">
+                            <strong>🐕 Max - Cachorro Resgatado das Ruas</strong>
+                            <p>Max foi encontrado desnutrido e ferido nas ruas. Com ajuda de doadores, recebeu tratamento veterinário, alimentação adequada e hoje está pronto para adoção.</p>
+                        </div>
+
+                        <div class="causa-item">
+                            <strong>🐈 Mimi - Gato em Situação de Vulnerabilidade</strong>
+                            <p>Mimi chegou ao PetResgate com infecção. A doação de R$ 50 ajudou a cobrir os custos do tratamento e hoje ela brinca feliz em nosso abrigo.</p>
+                        </div>
+
+                        <div class="causa-item">
+                            <strong>🐇 Pequenininha - Coelha Abandonada</strong>
+                            <p>Pequenininha foi abandonada grávida. Sua doação ajudou a cuidar dela e de seus filhotes até estarem prontos para adoção responsável.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-doacao">
+                        <strong>✅ Transparência</strong>
+                        <p>O PetResgate é uma organização dedicada ao bem-estar animal. Todas as doações são utilizadas exclusivamente para o cuidado e resgate de animais. Você receberá um comprovante da transação</p>
+                    </div>
+                </div>
+
+                <div class="secao-qr">
+                    <div class="qr-code-container">
+                        <h3 style="color: #e75b3a; margin-top: 0;">Escaneie para Donar</h3>
+                        
+                        <!-- QR Code gerado - você pode gerar um real em: https://qr-server.com ou https://www.qr-code-generator.com -->
+                        <!-- Exemplo com PIX Chave CPF fictícia: 12345678900 -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=00020126360014br.gov.bcb.pix0136123e4567-e12b-12d1-a456-426614174000520400005303986540510.005802BR5913PETRESGATE6009SAO PAULO62410503***63047BAE" alt="QR Code PIX" title="Escanear com o seu banco">
+                        
+                        <div class="qr-info">
+                            <p><strong>PIX Chave CPF</strong></p>
+                            <p class="chave-pix-container">123.456.789-00</p>
+                            <button class="botao-copiar" onclick="copiarChave('123.456.789-00')">Copiar Chave CPF</button>
+                        </div>
+
+                        <div class="qr-info" style="margin-top: 25px; border-top: 1px solid #ececec; padding-top: 20px;">
+                            <p><strong>PIX Chave Email</strong></p>
+                            <p class="chave-pix-container">doacao@petresgate.com.br</p>
+                            <button class="botao-copiar" onclick="copiarChave('doacao@petresgate.com.br')">Copiar Email</button>
+                        </div>
+
+                        <div class="qr-info" style="margin-top: 25px; border-top: 1px solid #ececec; padding-top: 20px;">
+                            <p><strong>PIX Chave Aleatória</strong></p>
+                            <p class="chave-pix-container">a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6</p>
+                            <button class="botao-copiar" onclick="copiarChave('a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6')">Copiar Chave Aleatória</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/doacao-dinheiro.js"></script>
+</body>
+</html>
