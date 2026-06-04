@@ -1,2 +1,2 @@
-# projeot-extens-o-petresgate
+# projeto-extensao-petresgate
 Projeto de Extensão da Faculdade de ADS
