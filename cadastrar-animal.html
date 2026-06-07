@@ -13,6 +13,7 @@
 </head>
 <body>
     <div class="container-site">
+        <div class="backdrop-menu" id="backdropMenu"></div>
         <header class="cabecalho">
             <div class="area-logo">
                 <div class="logo-pata" aria-label="Logo com pata">
@@ -26,13 +27,17 @@
                 </div>
                 <span class="titulo-site">PetResgate</span>
             </div>
-            <nav class="menu">
+            <button class="botao-menu-mobile" id="botaoMenuMobile" aria-label="Abrir menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="menu" id="menuPrincipal">
                 <a href="index.html">Início</a>
                 <a href="cadastrar.html">Cadastrar Perdido</a>
                 <a href="cadastrar-animal.html" class="ativo">Doar Animal</a>
                 <a href="busca.html">Buscar</a>
                 <a href="doacao-dinheiro.html">Ajudar com PIX</a>
-                <a href="login.html" class="botao-login">Login</a>
             </nav>
         </header>
         <main>

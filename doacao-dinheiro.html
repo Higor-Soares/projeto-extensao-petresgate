@@ -158,6 +158,7 @@
 </head>
 <body>
     <div class="container-site">
+        <div class="backdrop-menu" id="backdropMenu"></div>
         <header class="cabecalho">
             <div class="area-logo">
                 <div class="logo-pata" aria-label="Logo com pata">
@@ -171,13 +172,17 @@
                 </div>
                 <span class="titulo-site">PetResgate</span>
             </div>
-            <nav class="menu">
+            <button class="botao-menu-mobile" id="botaoMenuMobile" aria-label="Abrir menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="menu" id="menuPrincipal">
                 <a href="index.html">Início</a>
                 <a href="cadastrar.html">Cadastrar Perdido</a>
                 <a href="cadastrar-animal.html">Doar Animal</a>
                 <a href="busca.html">Buscar</a>
                 <a href="doacao-dinheiro.html" class="ativo">Ajudar com PIX</a>
-                <a href="login.html" class="botao-login">Login</a>
             </nav>
         </header>
         <main>
@@ -269,4 +274,68 @@
     </div>
     <script src="js/doacao-dinheiro.js"></script>
 </body>
+<script>
+    // Menu hamburger responsivo com backdrop
+    const botaoMenu = document.getElementById('botaoMenuMobile');
+    const menu = document.getElementById('menuPrincipal');
+    const backdropMenu = document.getElementById('backdropMenu');
+    const linksMenu = menu.querySelectorAll('a');
+
+    function fecharMenu() {
+        botaoMenu.classList.remove('ativo');
+        menu.classList.remove('ativo');
+        backdropMenu.classList.remove('ativo');
+        botaoMenu.setAttribute('aria-expanded', 'false');
+    }
+
+    function abrirMenu() {
+        botaoMenu.classList.add('ativo');
+        menu.classList.add('ativo');
+        if (window.innerWidth <= 900) {
+            backdropMenu.classList.add('ativo');
+        }
+        botaoMenu.setAttribute('aria-expanded', 'true');
+    }
+
+    // Abrir/fechar menu ao clicar no botão
+    botaoMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (botaoMenu.classList.contains('ativo')) {
+            fecharMenu();
+        } else {
+            abrirMenu();
+        }
+    });
+
+    // Fechar menu quando clicar no backdrop
+    backdropMenu.addEventListener('click', fecharMenu);
+
+    // Fechar menu quando clicar em um link
+    linksMenu.forEach(link => {
+        link.addEventListener('click', fecharMenu);
+    });
+
+    // Prevenir que clicks dentro do menu fechem ele
+    menu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Fechar menu quando redimensionar a tela para desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+            fecharMenu();
+        }
+    });
+
+    // Prevenir scroll quando o menu está aberto
+    const observer = new MutationObserver(() => {
+        if (menu.classList.contains('ativo')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+
+    observer.observe(menu, { attributes: true });
+</script>
 </html>

@@ -233,15 +233,155 @@ body {
     vertical-align: middle;
 }
 
+.botao-menu-mobile {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 6px;
+    padding: 10px 8px;
+    z-index: 1002;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.botao-menu-mobile:hover {
+    transform: scale(1.1);
+}
+
+.cabecalho {
+    position: relative;
+    z-index: 1001;
+}
+
+.menu {
+    position: relative;
+    z-index: 1001;
+}
+
+.botao-menu-mobile span {
+    width: 28px;
+    height: 3px;
+    background: #e75b3a;
+    border-radius: 3px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    display: block;
+    box-shadow: 0 2px 6px rgba(231, 91, 58, 0.1);
+}
+
+.botao-menu-mobile.ativo span:nth-child(1) {
+    transform: rotate(45deg) translate(11px, 11px);
+    background: #e75b3a;
+}
+
+.botao-menu-mobile.ativo span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.botao-menu-mobile.ativo span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+    background: #e75b3a;
+}
+
 @media (max-width: 900px) {
     .container-site {
         max-width: 98vw;
         margin: 0;
         border-radius: 0;
+        box-shadow: none;
+    }
+    .cabecalho {
+        flex-wrap: wrap;
+        padding: 16px 18px;
+        min-height: auto;
+        gap: 12px;
     }
     .cabecalho, .rodape, .secao-destaques {
         padding-left: 18px;
         padding-right: 18px;
+    }
+    .botao-menu-mobile {
+        display: flex;
+        order: 2;
+    }
+    .menu {
+        order: 3;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+        margin-top: 8px;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+    }
+    .menu.ativo {
+        max-height: 600px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    }
+    .menu a {
+        padding: 16px 18px;
+        border-radius: 0;
+        border-bottom: 1px solid #f0f0f0;
+        transition: all 0.2s ease;
+        color: #333;
+        font-weight: 500;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .menu a::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: #e75b3a;
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+    }
+    .menu a:hover::before {
+        transform: scaleY(1);
+    }
+    .menu a:hover {
+        background: #fff8f3;
+        padding-left: 22px;
+    }
+    .menu a:last-child {
+        border-bottom: none;
+    }
+    .menu a.botao-login {
+        margin-left: 0;
+        background: linear-gradient(135deg, #e75b3a 0%, #d63d1d 100%);
+        color: #fff;
+        font-weight: 600;
+        margin: 12px 12px;
+        border-radius: 10px;
+        border-bottom: none;
+        box-shadow: 0 4px 12px rgba(231, 91, 58, 0.2);
+        transition: all 0.3s ease;
+    }
+    .menu a.botao-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(231, 91, 58, 0.3);
+        padding-left: 18px;
+    }
+    .menu a.botao-login::before {
+        display: none;
+    }
+    .menu a.ativo {
+        background: #ffe9dc;
+        color: #e75b3a;
+        font-weight: 600;
+    }
+    .menu a.ativo::before {
+        transform: scaleY(1);
     }
     .grade-cards {
         flex-direction: column;
@@ -256,6 +396,59 @@ body {
     }
     .caixa-busca button {
         margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cabecalho {
+        padding: 12px 12px;
+    }
+    .titulo-site {
+        font-size: 1.2rem;
+    }
+    .botao-menu-mobile {
+        padding: 8px 4px;
+    }
+    .botao-menu-mobile span {
+        width: 24px;
+        height: 2.5px;
+    }
+    .menu {
+        margin-top: 6px;
+        border-radius: 12px;
+        margin-left: -12px;
+        margin-right: -12px;
+        width: calc(100% + 24px);
+    }
+    .menu a {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+    }
+    .menu a:hover {
+        padding-left: 20px;
+    }
+    .menu a.botao-login {
+        margin: 10px 8px;
+        padding: 14px 18px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+    }
+    .secao-destaque h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    .caixa-busca {
+        max-width: 100%;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+    .caixa-busca input {
+        font-size: 1rem;
+        padding: 16px 16px;
+    }
+    .caixa-busca button {
+        font-size: 1rem;
+        padding: 16px 12px;
     }
 }
 
