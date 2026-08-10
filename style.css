@@ -1,5 +1,5 @@
 body {
-    background: #fff8f3;
+    background: #e8f4fc;
     font-family: 'Inter', Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
@@ -28,29 +28,16 @@ body {
     align-items: center;
     gap: 12px;
 }
-.logo-pata {
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-.logo-pata svg {
-    width: 40px;
-    height: 40px;
+.logo-img {
+    height: 64px;
+    width: auto;
     display: block;
-    position: relative;
-    z-index: 2;
-}
-.logo-pata::after {
-    display: none;
+    object-fit: contain;
 }
 .titulo-site {
     font-size: 1.45rem;
     font-weight: 700;
-    color: #222;
+    color: #1A4F9C;
 }
 
 .menu {
@@ -68,17 +55,17 @@ body {
     transition: background 0.2s;
 }
 .menu a.botao-login {
-    background: #e75b3a;
+    background: #1A4F9C;
     color: #fff;
     font-weight: 600;
     margin-left: 18px;
-    box-shadow: 0 2px 8px rgba(231,91,58,0.16);
+    box-shadow: 0 2px 8px rgba(26,79,156,0.18);
     padding: 8px 28px;
     border-radius: 18px;
     font-size: 1.05rem;
 }
 .menu a:hover:not(.botao-login) {
-    background: #ffe9dc;
+    background: #dbeeff;
 }
 
 .secao-destaque {
@@ -115,7 +102,7 @@ body {
 .caixa-busca button {
     padding: 20px 0;
     width: 180px;
-    background: #e75b3a;
+    background: #1A4F9C;
     color: #fff;
     font-size: 1.25rem;
     font-weight: 600;
@@ -126,7 +113,7 @@ body {
     margin-left: 0;
 }
 .caixa-busca button:hover {
-    background: #c7462b;
+    background: #13397a;
 }
 
 .secao-destaques {
@@ -183,7 +170,7 @@ body {
     gap: 18px;
 }
 .card-pet .links-card a {
-    color: #e75b3a;
+    color: #1A4F9C;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 500;
@@ -221,8 +208,8 @@ body {
     display: inline-block;
     font-size: 1.3rem;
     margin-left: 12px;
-    color: #d46b4c;
-    background: #fff1e5;
+    color: #1A4F9C;
+    background: #dbeeff;
     border-radius: 50%;
     padding: 6px;
     vertical-align: middle;
@@ -263,16 +250,16 @@ body {
 .botao-menu-mobile span {
     width: 28px;
     height: 3px;
-    background: #e75b3a;
+    background: #1A4F9C;
     border-radius: 3px;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
     display: block;
-    box-shadow: 0 2px 6px rgba(231, 91, 58, 0.1);
+    box-shadow: 0 2px 6px rgba(26, 79, 156, 0.15);
 }
 
 .botao-menu-mobile.ativo span:nth-child(1) {
     transform: rotate(45deg) translate(11px, 11px);
-    background: #e75b3a;
+    background: #1A4F9C;
 }
 
 .botao-menu-mobile.ativo span:nth-child(2) {
@@ -282,7 +269,7 @@ body {
 
 .botao-menu-mobile.ativo span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
-    background: #e75b3a;
+    background: #1A4F9C;
 }
 
 @media (max-width: 900px) {
@@ -342,7 +329,7 @@ body {
         top: 0;
         bottom: 0;
         width: 4px;
-        background: #e75b3a;
+        background: #1A4F9C;
         transform: scaleY(0);
         transition: transform 0.3s ease;
     }
@@ -350,7 +337,7 @@ body {
         transform: scaleY(1);
     }
     .menu a:hover {
-        background: #fff8f3;
+        background: #dbeeff;
         padding-left: 22px;
     }
     .menu a:last-child {
@@ -358,26 +345,26 @@ body {
     }
     .menu a.botao-login {
         margin-left: 0;
-        background: linear-gradient(135deg, #e75b3a 0%, #d63d1d 100%);
+        background: linear-gradient(135deg, #1A4F9C 0%, #13397a 100%);
         color: #fff;
         font-weight: 600;
         margin: 12px 12px;
         border-radius: 10px;
         border-bottom: none;
-        box-shadow: 0 4px 12px rgba(231, 91, 58, 0.2);
+        box-shadow: 0 4px 12px rgba(26, 79, 156, 0.22);
         transition: all 0.3s ease;
     }
     .menu a.botao-login:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(231, 91, 58, 0.3);
+        box-shadow: 0 6px 16px rgba(26, 79, 156, 0.32);
         padding-left: 18px;
     }
     .menu a.botao-login::before {
         display: none;
     }
     .menu a.ativo {
-        background: #ffe9dc;
-        color: #e75b3a;
+        background: #dbeeff;
+        color: #1A4F9C;
         font-weight: 600;
     }
     .menu a.ativo::before {
@@ -502,7 +489,7 @@ body {
 .form-cadastro button {
     margin-top: 10px;
     padding: 16px 0;
-    background: #e75b3a;
+    background: #1A4F9C;
     color: #fff;
     font-size: 1.15rem;
     font-weight: 600;
@@ -513,7 +500,7 @@ body {
     width: 100%;
 }
 .form-cadastro button:hover {
-    background: #c7462b;
+    background: #13397a;
 }
 @media (max-width: 600px) {
     .secao-formulario {
@@ -565,7 +552,7 @@ body {
 .form-login button {
     margin-top: 10px;
     padding: 16px 0;
-    background: #e75b3a;
+    background: #1A4F9C;
     color: #fff;
     font-size: 1.15rem;
     font-weight: 600;
@@ -576,7 +563,7 @@ body {
 }
 
 .form-login button:hover {
-    background: #c7462b;
+    background: #13397a;
 }
 
 .links-formulario {
@@ -588,13 +575,13 @@ body {
 }
 
 .links-formulario a {
-    color: #e75b3a;
+    color: #1A4F9C;
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .links-formulario a:hover {
-    color: #c7462b;
+    color: #13397a;
     text-decoration: underline;
 }
 
@@ -607,7 +594,7 @@ body {
 }
 
 .menu a.ativo {
-    background: #ffe9dc;
+    background: #dbeeff;
 }
 
 .descricao-formulario {
@@ -640,7 +627,7 @@ body {
 
 .barra-alfabeto a {
     text-decoration: none;
-    color: #e75b3a;
+    color: #1A4F9C;
     font-weight: 600;
     font-size: 1.1rem;
     padding: 8px 10px;
@@ -649,6 +636,6 @@ body {
 }
 
 .barra-alfabeto a:hover {
-    background: #ffe9dc;
-    color: #c7462b;
+    background: #dbeeff;
+    color: #13397a;
 }

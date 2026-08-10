@@ -48,7 +48,7 @@
 .form-cadastro button {
     margin-top: 10px;
     padding: 16px 0;
-    background: #e75b3a;
+    background: #1A4F9C;
     color: #fff;
     font-size: 1.15rem;
     font-weight: 600;
@@ -59,7 +59,7 @@
     width: 100%;
 }
 .form-cadastro button:hover {
-    background: #c7462b;
+    background: #13397a;
 }
 @media (max-width: 600px) {
     .secao-formulario {
@@ -111,7 +111,7 @@
 .form-login button {
     margin-top: 10px;
     padding: 16px 0;
-    background: #e75b3a;
+    background: #1A4F9C;
     color: #fff;
     font-size: 1.15rem;
     font-weight: 600;
@@ -122,7 +122,7 @@
 }
 
 .form-login button:hover {
-    background: #c7462b;
+    background: #13397a;
 }
 
 .links-formulario {
@@ -134,13 +134,13 @@
 }
 
 .links-formulario a {
-    color: #e75b3a;
+    color: #1A4F9C;
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .links-formulario a:hover {
-    color: #c7462b;
+    color: #13397a;
     text-decoration: underline;
 }
 
@@ -153,7 +153,7 @@
 }
 
 .menu a.ativo {
-    background: #ffe9dc;
+    background: #dbeeff;
 }
 
 .descricao-formulario {
