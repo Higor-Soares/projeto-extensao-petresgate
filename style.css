@@ -10,7 +10,7 @@ body {
     margin: 32px auto;
     background: #fff;
     border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
     padding: 0;
 }
 
@@ -28,12 +28,14 @@ body {
     align-items: center;
     gap: 12px;
 }
+
 .logo-img {
-    height: 64px;
+    height: 100px;
     width: auto;
     display: block;
     object-fit: contain;
 }
+
 .titulo-site {
     font-size: 1.45rem;
     font-weight: 700;
@@ -45,6 +47,7 @@ body {
     align-items: center;
     gap: 24px;
 }
+
 .menu a {
     text-decoration: none;
     color: #222;
@@ -54,16 +57,18 @@ body {
     border-radius: 8px;
     transition: background 0.2s;
 }
+
 .menu a.botao-login {
     background: #1A4F9C;
     color: #fff;
     font-weight: 600;
     margin-left: 18px;
-    box-shadow: 0 2px 8px rgba(26,79,156,0.18);
+    box-shadow: 0 2px 8px rgba(26, 79, 156, 0.18);
     padding: 8px 28px;
     border-radius: 18px;
     font-size: 1.05rem;
 }
+
 .menu a:hover:not(.botao-login) {
     background: #dbeeff;
 }
@@ -72,6 +77,7 @@ body {
     text-align: center;
     margin: 56px 0 40px 0;
 }
+
 .secao-destaque h1 {
     font-size: 3.2rem;
     font-weight: 700;
@@ -79,6 +85,7 @@ body {
     margin-bottom: 38px;
     line-height: 1.1;
 }
+
 .caixa-busca {
     display: flex;
     flex-direction: row;
@@ -88,6 +95,7 @@ body {
     max-width: 520px;
     margin: 0 auto;
 }
+
 .caixa-busca input {
     width: 100%;
     padding: 20px 24px;
@@ -99,6 +107,7 @@ body {
     box-sizing: border-box;
     border-right: none;
 }
+
 .caixa-busca button {
     padding: 20px 0;
     width: 180px;
@@ -112,6 +121,7 @@ body {
     transition: background 0.2s;
     margin-left: 0;
 }
+
 .caixa-busca button:hover {
     background: #13397a;
 }
@@ -120,6 +130,7 @@ body {
     margin: 48px 0 0 0;
     padding: 0 40px 40px 40px;
 }
+
 .secao-destaques h2 {
     font-size: 2rem;
     font-weight: 700;
@@ -127,16 +138,18 @@ body {
     margin-bottom: 28px;
     text-align: left;
 }
+
 .grade-cards {
     display: flex;
     gap: 32px;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
+
 .card-pet {
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     padding: 18px 18px 12px 18px;
     width: 250px;
     display: flex;
@@ -144,6 +157,7 @@ body {
     align-items: center;
     transition: box-shadow 0.2s;
 }
+
 .card-pet img {
     width: 120px;
     height: 120px;
@@ -151,24 +165,29 @@ body {
     object-fit: cover;
     margin-bottom: 14px;
 }
+
 .card-pet .info-pet {
     text-align: left;
     width: 100%;
 }
+
 .card-pet strong {
     font-size: 1.13rem;
     color: #181818;
 }
-.card-pet .info-pet > div {
+
+.card-pet .info-pet>div {
     font-size: 1rem;
     color: #444;
     margin-bottom: 2px;
 }
+
 .card-pet .links-card {
     margin-top: 8px;
     display: flex;
     gap: 18px;
 }
+
 .card-pet .links-card a {
     color: #1A4F9C;
     text-decoration: none;
@@ -176,6 +195,7 @@ body {
     font-weight: 500;
     transition: text-decoration 0.2s;
 }
+
 .card-pet .links-card a:hover {
     text-decoration: underline;
 }
@@ -191,19 +211,26 @@ body {
     color: #222;
     background: transparent;
 }
-.rodape-esquerda, .rodape-centro, .rodape-direita {
+
+.rodape-esquerda,
+.rodape-centro,
+.rodape-direita {
     flex: 1;
     text-align: center;
 }
+
 .rodape-esquerda {
     text-align: left;
 }
+
 .rodape-centro {
     text-align: center;
 }
+
 .rodape-direita {
     text-align: right;
 }
+
 .rodape .icone {
     display: inline-block;
     font-size: 1.3rem;
@@ -214,6 +241,7 @@ body {
     padding: 6px;
     vertical-align: middle;
 }
+
 .rodape .icone svg {
     width: 20px;
     height: 20px;
@@ -279,20 +307,26 @@ body {
         border-radius: 0;
         box-shadow: none;
     }
+
     .cabecalho {
         flex-wrap: wrap;
         padding: 16px 18px;
         min-height: auto;
         gap: 12px;
     }
-    .cabecalho, .rodape, .secao-destaques {
+
+    .cabecalho,
+    .rodape,
+    .secao-destaques {
         padding-left: 18px;
         padding-right: 18px;
     }
+
     .botao-menu-mobile {
         display: flex;
         order: 2;
     }
+
     .menu {
         order: 3;
         width: 100%;
@@ -307,10 +341,12 @@ body {
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         border: 1px solid #f0f0f0;
     }
+
     .menu.ativo {
         max-height: 600px;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
     }
+
     .menu a {
         padding: 16px 18px;
         border-radius: 0;
@@ -322,6 +358,7 @@ body {
         display: flex;
         align-items: center;
     }
+
     .menu a::before {
         content: '';
         position: absolute;
@@ -333,16 +370,20 @@ body {
         transform: scaleY(0);
         transition: transform 0.3s ease;
     }
+
     .menu a:hover::before {
         transform: scaleY(1);
     }
+
     .menu a:hover {
         background: #dbeeff;
         padding-left: 22px;
     }
+
     .menu a:last-child {
         border-bottom: none;
     }
+
     .menu a.botao-login {
         margin-left: 0;
         background: linear-gradient(135deg, #1A4F9C 0%, #13397a 100%);
@@ -354,33 +395,42 @@ body {
         box-shadow: 0 4px 12px rgba(26, 79, 156, 0.22);
         transition: all 0.3s ease;
     }
+
     .menu a.botao-login:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 16px rgba(26, 79, 156, 0.32);
         padding-left: 18px;
     }
+
     .menu a.botao-login::before {
         display: none;
     }
+
     .menu a.ativo {
         background: #dbeeff;
         color: #1A4F9C;
         font-weight: 600;
     }
+
     .menu a.ativo::before {
         transform: scaleY(1);
     }
+
     .grade-cards {
         flex-direction: column;
         align-items: center;
     }
+
     .caixa-busca {
         flex-direction: column;
     }
-    .caixa-busca input, .caixa-busca button {
+
+    .caixa-busca input,
+    .caixa-busca button {
         border-radius: 14px !important;
         width: 100%;
     }
+
     .caixa-busca button {
         margin-top: 10px;
     }
@@ -390,16 +440,20 @@ body {
     .cabecalho {
         padding: 12px 12px;
     }
+
     .titulo-site {
         font-size: 1.2rem;
     }
+
     .botao-menu-mobile {
         padding: 8px 4px;
     }
+
     .botao-menu-mobile span {
         width: 24px;
         height: 2.5px;
     }
+
     .menu {
         margin-top: 6px;
         border-radius: 12px;
@@ -407,32 +461,39 @@ body {
         margin-right: -12px;
         width: calc(100% + 24px);
     }
+
     .menu a {
         padding: 14px 16px;
         font-size: 0.95rem;
     }
+
     .menu a:hover {
         padding-left: 20px;
     }
+
     .menu a.botao-login {
         margin: 10px 8px;
         padding: 14px 18px;
         border-radius: 8px;
         font-size: 0.95rem;
     }
+
     .secao-destaque h1 {
         font-size: 2rem;
         margin-bottom: 20px;
     }
+
     .caixa-busca {
         max-width: 100%;
         padding: 0 12px;
         box-sizing: border-box;
     }
+
     .caixa-busca input {
         font-size: 1rem;
         padding: 16px 16px;
     }
+
     .caixa-busca button {
         font-size: 1rem;
         padding: 16px 12px;
@@ -444,12 +505,13 @@ body {
     margin: 56px auto 0 auto;
     background: #fff;
     border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
     padding: 40px 32px 32px 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .secao-formulario h1 {
     font-size: 2rem;
     font-weight: 700;
@@ -457,35 +519,72 @@ body {
     margin-bottom: 32px;
     text-align: center;
 }
+
 .form-cadastro {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
+
 .form-cadastro label {
     font-size: 1rem;
     font-weight: 500;
     color: #222;
     margin-bottom: 4px;
 }
+
 .form-cadastro input[type="text"],
 .form-cadastro input[type="number"],
 .form-cadastro input[type="date"],
-.form-cadastro input[type="file"] {
+.form-cadastro input[type="email"],
+.form-cadastro input[type="tel"],
+.form-cadastro input[type="password"],
+.form-cadastro input[type="file"],
+.form-cadastro select,
+.form-cadastro textarea {
     padding: 16px 14px;
     border: 1.5px solid #e0e0e0;
     border-radius: 12px;
     font-size: 1.08rem;
-    background: #fafbfc;
+    font-family: inherit;
+    color: #222;
+    background-color: #fafbfc;
     outline: none;
     margin-bottom: 0;
     box-sizing: border-box;
+    width: 100%;
 }
+
+.form-cadastro select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-cadastro textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-cadastro input:focus,
+.form-cadastro select:focus,
+.form-cadastro textarea:focus {
+    border-color: #1A4F9C;
+    background-color: #fff;
+}
+
 .form-cadastro input[type="file"] {
     padding: 10px 10px;
     background: transparent;
 }
+
 .form-cadastro button {
     margin-top: 10px;
     padding: 16px 0;
@@ -499,9 +598,11 @@ body {
     transition: background 0.2s;
     width: 100%;
 }
+
 .form-cadastro button:hover {
     background: #13397a;
 }
+
 @media (max-width: 600px) {
     .secao-formulario {
         max-width: 98vw;
@@ -513,11 +614,13 @@ body {
     display: flex;
     gap: 16px;
 }
-.grupo-duplo > div {
+
+.grupo-duplo>div {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
+
 @media (max-width: 600px) {
     .grupo-duplo {
         flex-direction: column;
@@ -532,14 +635,36 @@ body {
     gap: 18px;
 }
 
-.form-login input {
+.form-login input,
+.form-login select {
     padding: 16px 14px;
     border: 1.5px solid #e0e0e0;
     border-radius: 12px;
     font-size: 1.08rem;
+    font-family: inherit;
+    color: #222;
     background: #fafbfc;
     outline: none;
     box-sizing: border-box;
+    width: 100%;
+}
+
+.form-login select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-login input:focus,
+.form-login select:focus {
+    border-color: #1A4F9C;
+    background-color: #fff;
 }
 
 .form-login label {

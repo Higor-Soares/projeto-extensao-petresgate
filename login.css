@@ -31,16 +31,49 @@
 .form-cadastro input[type="text"],
 .form-cadastro input[type="number"],
 .form-cadastro input[type="date"],
-.form-cadastro input[type="file"] {
+.form-cadastro input[type="email"],
+.form-cadastro input[type="tel"],
+.form-cadastro input[type="password"],
+.form-cadastro input[type="file"],
+.form-cadastro select,
+.form-cadastro textarea {
     padding: 16px 14px;
     border: 1.5px solid #e0e0e0;
     border-radius: 12px;
     font-size: 1.08rem;
-    background: #fafbfc;
+    font-family: inherit;
+    color: #222;
+    background-color: #fafbfc;
     outline: none;
     margin-bottom: 0;
     box-sizing: border-box;
+    width: 100%;
 }
+
+.form-cadastro select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-cadastro textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-cadastro input:focus,
+.form-cadastro select:focus,
+.form-cadastro textarea:focus {
+    border-color: #1A4F9C;
+    background-color: #fff;
+}
+
 .form-cadastro input[type="file"] {
     padding: 10px 10px;
     background: transparent;
@@ -91,14 +124,36 @@
     gap: 18px;
 }
 
-.form-login input {
+.form-login input,
+.form-login select {
     padding: 16px 14px;
     border: 1.5px solid #e0e0e0;
     border-radius: 12px;
     font-size: 1.08rem;
+    font-family: inherit;
+    color: #222;
     background: #fafbfc;
     outline: none;
     box-sizing: border-box;
+    width: 100%;
+}
+
+.form-login select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-login input:focus,
+.form-login select:focus {
+    border-color: #1A4F9C;
+    background-color: #fff;
 }
 
 .form-login label {
