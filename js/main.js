@@ -8,19 +8,22 @@ let pets = [];
 
 function criarCardPet(pet) {
   const imagem = getImageUrl(pet) || 'https://images.unsplash.com/photo-1548199973-03fb7c89d4f2?auto=format&fit=crop&w=400&q=80';
-  const titulo = `${pet.nome || 'Pet sem nome'} • ${pet.raca || 'Sem raça'}`;
-  const local = pet.cidade || 'Local não informado';
-  const status = pet.data ? `Desaparecido em ${pet.data}` : 'Detalhes não informados';
+  const nome = pet.nome || pet.nomeAnimal || 'Pet para Adoção';
+  const raca = pet.raca || 'SRD';
+  const especie = pet.especie || 'Pet';
+  const titulo = `${nome} • ${especie} (${raca})`;
+  const local = pet.cidade ? `📍 ${pet.cidade}` : '📍 Cidade não informada';
+  const detalhesCurto = pet.idade ? `Idade: ${pet.idade} ano(s) • ${pet.sexo || ''}` : (pet.descricao || 'Disponível para adoção responsável');
 
   return `
     <div class="card-pet">
-      <img src="${imagem}" alt="Foto de ${pet.nome || 'pet'}" onerror="this.src='https://images.unsplash.com/photo-1548199973-03fb7c89d4f2?auto=format&fit=crop&w=400&q=80'">
+      <img src="${imagem}" alt="Foto de ${nome}" onerror="this.src='https://images.unsplash.com/photo-1548199973-03fb7c89d4f2?auto=format&fit=crop&w=400&q=80'">
       <div class="info-pet">
         <strong>${titulo}</strong>
         <div>${local}</div>
-        <div>${status}</div>
-        <div class="links-card">
-          <a href="#" class="ver-detalhes" data-pet-id="${pet.id}">Ver detalhes</a>
+        <div style="font-size: 0.9rem; color: #555; margin-top: 4px;">${detalhesCurto}</div>
+        <div class="links-card" style="margin-top: 10px;">
+          <a href="#" class="ver-detalhes" data-pet-id="${pet.id}">Quero Adotar / Detalhes</a>
         </div>
       </div>
     </div>
@@ -45,15 +48,16 @@ function getImageUrl(pet) {
 
   for (const key of candidates) {
     const val = pet[key];
-    if (val && typeof val === 'string' && /^https?:\/\//i.test(val)) return val;
+    if (val && typeof val === 'string' && (/^(https?:\/\/|data:image\/)/i.test(val) || val.length > 50)) {
+      return val;
+    }
   }
 
-  // Search nested objects for a secure_url (e.g., saved Cloudinary response)
   for (const k in pet) {
     const v = pet[k];
     if (v && typeof v === 'object') {
-      if (typeof v.secure_url === 'string' && /^https?:\/\//i.test(v.secure_url)) return v.secure_url;
-      if (typeof v.url === 'string' && /^https?:\/\//i.test(v.url)) return v.url;
+      if (typeof v.secure_url === 'string') return v.secure_url;
+      if (typeof v.url === 'string') return v.url;
     }
   }
 
@@ -63,7 +67,7 @@ function getImageUrl(pet) {
 function renderizarPets(listaPets) {
   if (!gradeCards) return;
   if (listaPets.length === 0) {
-    gradeCards.innerHTML = '<p class="nenhum-pet">Nenhum pet cadastrado encontrado.</p>';
+    gradeCards.innerHTML = '<p class="nenhum-pet" style="grid-column: 1/-1; text-align: center; color: #666; padding: 40px;">Nenhum animal para adoção encontrado com este filtro.</p>';
     return;
   }
 
@@ -74,7 +78,7 @@ function filtrarPets(termo) {
   const texto = termo.trim().toLowerCase();
   if (!texto) return pets;
   return pets.filter((pet) => {
-    return [pet.nome, pet.cidade, pet.raca, pet.local]
+    return [pet.nome, pet.nomeAnimal, pet.cidade, pet.raca, pet.especie, pet.descricao]
       .filter(Boolean)
       .some((valor) => valor.toLowerCase().includes(texto));
   });
@@ -98,34 +102,43 @@ function fecharModal() {
 }
 
 function montarDetalhes(pet) {
-  const imagem = pet.foto || pet.fotoBase64 || 'https://images.unsplash.com/photo-1548199973-03fb7c89d4f2?auto=format&fit=crop&w=700&q=80';
-  const nome = pet.nome || 'Pet sem nome';
+  const imagem = getImageUrl(pet) || 'https://images.unsplash.com/photo-1548199973-03fb7c89d4f2?auto=format&fit=crop&w=700&q=80';
+  const nome = pet.nome || pet.nomeAnimal || 'Pet sem nome';
   const especie = pet.especie || 'Não informado';
   const raca = pet.raca || 'Não informado';
-  const porte = pet.porte || 'Não informado';
-  const cor = pet.cor || 'Não informado';
+  const idade = pet.idade ? `${pet.idade} ano(s)` : 'Não informado';
+  const sexo = pet.sexo || 'Não informado';
   const cidade = pet.cidade || 'Não informado';
-  const local = pet.local || 'Não informado';
-  const data = pet.data || 'Não informado';
-  const contato = pet.contato || 'Não informado';
+  const vacinado = pet.vacinado || 'Não informado';
+  const castrado = pet.castrado || 'Não informado';
+  const saude = pet.problemasHealth || 'Nenhum problema informado';
+  const doador = pet.nomeDoador || pet.contato || 'Responsável pelo pet';
+  const telefone = pet.telefone || pet.contato || 'Não informado';
+  const descricao = pet.descricao || 'Sem descrição cadastrada.';
 
   return `
-    <img src="${imagem}" alt="Foto de ${nome}">
-    <p><strong>Nome:</strong> ${nome}</p>
-    <div class="linha">
+    <img src="${imagem}" alt="Foto de ${nome}" style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 12px; margin-bottom: 16px;">
+    <h2 style="margin: 0 0 10px 0; color: #181818;">${nome}</h2>
+    <p style="margin-bottom: 16px; color: #444; line-height: 1.5;">${descricao}</p>
+    <div class="linha" style="display: flex; gap: 20px; margin-bottom: 10px;">
       <span><strong>Espécie:</strong> ${especie}</span>
       <span><strong>Raça:</strong> ${raca}</span>
     </div>
-    <div class="linha">
-      <span><strong>Porte:</strong> ${porte}</span>
-      <span><strong>Cor:</strong> ${cor}</span>
+    <div class="linha" style="display: flex; gap: 20px; margin-bottom: 10px;">
+      <span><strong>Idade:</strong> ${idade}</span>
+      <span><strong>Sexo:</strong> ${sexo}</span>
     </div>
-    <div class="linha">
-      <span><strong>Cidade:</strong> ${cidade}</span>
-      <span><strong>Data:</strong> ${data}</span>
+    <div class="linha" style="display: flex; gap: 20px; margin-bottom: 10px;">
+      <span><strong>Vacinado:</strong> ${vacinado}</span>
+      <span><strong>Castrado:</strong> ${castrado}</span>
     </div>
-    <p><strong>Local:</strong> ${local}</p>
-    <p><strong>Contato:</strong> ${contato}</p>
+    <p style="margin: 10px 0;"><strong>Cidade:</strong> ${cidade}</p>
+    <p style="margin: 10px 0;"><strong>Saúde / Cuidados:</strong> ${saude}</p>
+    <div style="margin-top: 20px; padding: 16px; background: #f0f7ff; border-radius: 10px; border: 1px solid #cce5ff;">
+      <h4 style="margin: 0 0 8px 0; color: #1A4F9C;">Contato para Adoção:</h4>
+      <p style="margin: 4px 0;"><strong>Responsável:</strong> ${doador}</p>
+      <p style="margin: 4px 0;"><strong>Telefone/WhatsApp:</strong> ${telefone}</p>
+    </div>
   `;
 }
 
@@ -162,19 +175,37 @@ if (modalDetalhes) {
 
 async function carregarPets() {
   if (!gradeCards) return;
-  gradeCards.innerHTML = '<p class="carregando-pets">Carregando pets...</p>';
+  gradeCards.innerHTML = '<p class="carregando-pets" style="grid-column: 1/-1; text-align: center; color: #666; padding: 40px;">Carregando animais para adoção...</p>';
 
   try {
-    const colecao = collection(db, 'pets_perdidos');
-    const consulta = query(colecao, orderBy('nome'));
-    const snapshot = await getDocs(consulta);
-    pets = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    console.log('pets carregados:', pets);
-    pets.forEach(p => console.log('pet foto:', p.id, p.foto));
+    let lista = [];
+
+    // Tenta carregar da coleção 'pets' (usada no admin)
+    try {
+      const snapPets = await getDocs(collection(db, 'pets'));
+      lista = snapPets.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
+    } catch (e1) {
+      console.warn('Coleção pets não encontrada, tentando fallback...', e1);
+    }
+
+    // Se estiver vazia, tenta a coleção 'pets'
+    if (lista.length === 0) {
+      try {
+        const snapPerdidos = await getDocs(collection(db, 'pets'));
+        lista = snapPerdidos.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
+      } catch (e2) {
+        console.warn('Coleção pets não encontrada:', e2);
+      }
+    }
+
+    pets = lista;
+    // Ordena por nome
+    pets.sort((a, b) => (a.nome || a.nomeAnimal || '').localeCompare(b.nome || b.nomeAnimal || ''));
+
     renderizarPets(pets);
   } catch (erro) {
     console.error('Erro ao carregar pets:', erro);
-    gradeCards.innerHTML = '<p class="erro-pets">Não foi possível carregar os pets no momento.</p>';
+    gradeCards.innerHTML = '<p class="erro-pets" style="grid-column: 1/-1; text-align: center; color: #dc3545; padding: 40px;">Não foi possível carregar os animais no momento.</p>';
   }
 }
 
@@ -189,4 +220,4 @@ if (buscaForm && buscaInput) {
   });
 }
 
-carregarPets(); 
+carregarPets();

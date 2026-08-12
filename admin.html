@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Resgatando Anjos</title>
+    <link rel="icon" type="image/png" href="image/logo-resgatando-anjos.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .admin-user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-admin {
+            background: #eef4ff;
+            color: #1A4F9C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .btn-logout {
+            background: #1A4F9C;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover {
+            background: #13397a;
+        }
+
+        .secao-admin {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px 48px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .admin-header-center {
+            text-align: center;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .admin-header-center h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #181818;
+            margin: 0;
+        }
+
+        .admin-header-center .subtitulo {
+            font-size: 1.08rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .btn-novo-animal {
+            background: #1A4F9C;
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.05rem;
+            transition: background 0.2s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            box-shadow: 0 4px 14px rgba(26, 79, 156, 0.25);
+        }
+
+        .btn-novo-animal:hover {
+            background: #13397a;
+            transform: translateY(-1px);
+        }
+
+        .tabela-container {
+            width: 100%;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            overflow-x: auto;
+        }
+
+        .tabela-admin {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .tabela-admin th,
+        .tabela-admin td {
+            padding: 16px 14px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .tabela-admin th {
+            background: #fafbfc;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .img-thumb {
+            width: 58px;
+            height: 58px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #eee;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .btn-acao {
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin: 0 3px;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .btn-acao:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-editar {
+            background: #f59e0b;
+            color: #fff;
+        }
+
+        .btn-excluir {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        /* Modal Form */
+        .modal-admin {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-admin.hidden {
+            display: none;
+        }
+
+        .modal-admin-card {
+            background: #fff;
+            width: 100%;
+            max-width: 620px;
+            max-height: 90vh;
+            border-radius: 20px;
+            overflow-y: auto;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 16px;
+        }
+
+        .modal-admin-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #181818;
+            font-weight: 700;
+        }
+
+        .btn-fechar-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #888;
+            line-height: 1;
+        }
+
+        .botoes-form-modal {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: flex-end;
+        }
+
+        .btn-cancelar {
+            background: #6c757d;
+            color: #fff;
+            border: none;
+            padding: 14px 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-salvar {
+            background: #1A4F9C;
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-site">
+        <header class="cabecalho">
+            <div class="area-logo">
+                <img src="image/logo-resgatando-anjos.png" alt="Logo Resgatando Anjos" class="logo-img">
+            </div>
+            <div class="admin-user-info">
+                <span class="badge-admin" id="userEmail">Painel Admin</span>
+                <button type="button" class="btn-logout" id="btnLogout">Voltar ao Site</button>
+            </div>
+        </header>
+
+        <main>
+            <section class="secao-admin">
+                <div class="admin-header-center">
+                    <h1>Painel de Gestão de Animais</h1>
+                    <p class="subtitulo">Cadastre, edite ou remova animais disponíveis para adoção</p>
+                    <button type="button" class="btn-novo-animal" id="btnNovoAnimal">+ Cadastrar Novo Animal</button>
+                </div>
+
+                <div class="tabela-container">
+                    <table class="tabela-admin">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nome</th>
+                                <th>Espécie / Raça</th>
+                                <th>Idade / Sexo</th>
+                                <th>Cidade</th>
+                                <th>Responsável / Contato</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaCorpo">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 30px; color: #777;">Carregando
+                                    animais...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal de Cadastro / Edição -->
+    <div id="modalFormAnimal" class="modal-admin hidden">
+        <div class="modal-admin-card">
+            <div class="modal-admin-header">
+                <h2 id="modalTitulo">Cadastrar Animal para Adoção</h2>
+                <button type="button" class="btn-fechar-modal" id="btnFecharModal">&times;</button>
+            </div>
+            <form class="form-cadastro" id="formAdminAnimal">
+                <input type="hidden" id="petId">
+
+                <label for="nomeAnimal">Nome do animal *</label>
+                <input type="text" id="nomeAnimal" name="nomeAnimal" placeholder="Ex: Mel, Bob" required>
+
+                <div class="grupo-duplo">
+                    <div>
+                        <label for="especie">Espécie *</label>
+                        <select id="especie" name="especie" required>
+                            <option value="">Selecione a espécie</option>
+                            <option value="Cachorro">Cachorro</option>
+                            <option value="Gato">Gato</option>
+                            <option value="Coelho">Coelho</option>
+                            <option value="Pássaro">Pássaro</option>
+                            <option value="Roedor">Roedor</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="raca">Raça/Tipo *</label>
+                        <input type="text" id="raca" name="raca" placeholder="Ex: Poodle, Vira-lata..." required>
+                    </div>
+                </div>
+
+                <div class="grupo-duplo">
+                    <div>
+                        <label for="idade">Idade (anos) *</label>
+                        <input type="number" id="idade" name="idade" min="0" step="0.5" placeholder="Ex: 2" required>
+                    </div>
+                    <div>
+                        <label for="sexo">Sexo *</label>
+                        <select id="sexo" name="sexo" required>
+                            <option value="">Selecione</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Fêmea">Fêmea</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="foto">Foto do animal *</label>
+                <input type="file" id="foto" name="foto" accept="image/*">
+                <div id="previewFotoContainer" style="margin-top: 8px; display: none; align-items: center; gap: 12px;">
+                    <img id="previewFoto" src="" alt="Prévia da foto"
+                        style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px; border: 1.5px solid #e0e0e0;">
+                    <span style="font-size: 0.9rem; color: #555;">Prévia da foto selecionada</span>
+                </div>
+
+                <label for="descricao">Descrição do animal *</label>
+                <textarea id="descricao" name="descricao" placeholder="Descreva o temperamento, porte, história..."
+                    required></textarea>
+
+                <div class="grupo-duplo">
+                    <div>
+                        <label for="vacinado">Vacinado? *</label>
+                        <select id="vacinado" name="vacinado" required>
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                            <option value="Parcialmente">Parcialmente</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="castrado">Castrado? *</label>
+                        <select id="castrado" name="castrado" required>
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="problemasHealth">Problemas de saúde / Cuidados especiais</label>
+                <textarea id="problemasHealth" name="problemasHealth"
+                    placeholder="Informações de saúde ou medicação..."></textarea>
+
+                <h3>Dados do Responsável / Doador</h3>
+
+                <label for="nomeDoador">Nome do responsável *</label>
+                <input type="text" id="nomeDoador" name="nomeDoador" placeholder="Seu nome ou ONG" required>
+
+                <div class="grupo-duplo">
+                    <div>
+                        <label for="telefone">Telefone/WhatsApp *</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(XX) 99999-9999" required>
+                    </div>
+                    <div>
+                        <label for="cidade">Cidade *</label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Sua cidade" required>
+                    </div>
+                </div>
+
+                <div class="botoes-form-modal">
+                    <button type="button" class="btn-cancelar" id="btnCancelarModal">Cancelar</button>
+                    <button type="submit" class="btn-salvar" id="btnSalvarModal">Salvar Animal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js?v=4"></script>
+    <script type="module" src="js/admin.js?v=4"></script>
+</body>
+
+</html>

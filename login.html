@@ -32,20 +32,17 @@
         </header>
         <main>
             <section class="secao-formulario">
-                <h1>Login</h1>
-                <form class="form-login">
+                <h1>Área Administrativa</h1>
+                <p class="subtitulo" style="text-align: center; color: #666; margin-bottom: 20px;">Acesso restrito para administradores</p>
+                <div id="mensagemErro" class="mensagem-erro-login" style="display: none; color: #d9534f; background: #fdf7f7; padding: 12px; border: 1.5px solid #d9534f; border-radius: 10px; font-size: 0.95rem; margin-bottom: 16px; text-align: center; font-weight: 500;"></div>
+                <form class="form-login" id="formLogin">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="Digite seu e-mail">
+                    <input type="email" id="email" name="email" placeholder="admin@petresgate.com" required>
 
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
 
-                    <button type="submit">Entrar</button>
-
-                    <div class="links-formulario">
-                        <a href="nova-senha.html">Esqueci minha senha</a>
-                        <a href="novo-login.html" class="destaque">Criar nova conta</a>
-                    </div>
+                    <button type="submit" id="botaoEntrar">Entrar no Painel Admin</button>
                 </form>
             </section>
         </main>
@@ -124,5 +121,5 @@
 
     observer.observe(menu, { attributes: true });
 </script>
-<script src="js/login.js"></script>
+<script type="module" src="js/login.js"></script>
 </html>
