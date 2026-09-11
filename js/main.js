@@ -1,10 +1,31 @@
-import { db } from './firebase.js';
-import { collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js';
+import { db, collection, getDocs, onSnapshot } from './firebase-config.js';
 
 const gradeCards = document.querySelector('.grade-cards');
 const buscaForm = document.querySelector('.caixa-busca');
 const buscaInput = document.querySelector('.caixa-busca input');
 let pets = [];
+
+function getImageUrl(pet) {
+  if (!pet || typeof pet !== 'object') return null;
+  const candidates = [
+    'fotoUrl',
+    'foto',
+    'fotoURL',
+    'image',
+    'imagem',
+    'imagemUrl',
+    'imagemURL',
+    'url'
+  ];
+
+  for (const key of candidates) {
+    const val = pet[key];
+    if (val && typeof val === 'string' && (/^(https?:\/\/|data:image\/)/i.test(val) || val.length > 50)) {
+      return val;
+    }
+  }
+  return null;
+}
 
 function criarCardPet(pet) {
   const imagem = getImageUrl(pet) || 'https://images.unsplash.com/photo-1548199973-03fb7c89d4f2?auto=format&fit=crop&w=400&q=80';
@@ -13,7 +34,7 @@ function criarCardPet(pet) {
   const especie = pet.especie || 'Pet';
   const titulo = `${nome} • ${especie} (${raca})`;
   const local = pet.cidade ? `📍 ${pet.cidade}` : '📍 Cidade não informada';
-  const detalhesCurto = pet.idade ? `Idade: ${pet.idade} ano(s) • ${pet.sexo || ''}` : (pet.descricao || 'Disponível para adoção responsável');
+  const detalhesCurto = pet.idade ? `Idade: ${pet.idade} ano(s) • ${pet.sexo || ''}` : (pet.descricaoAnimal || pet.descricao || 'Disponível para adoção responsável');
 
   return `
     <div class="card-pet">
@@ -30,44 +51,10 @@ function criarCardPet(pet) {
   `;
 }
 
-function getImageUrl(pet) {
-  if (!pet || typeof pet !== 'object') return null;
-  const candidates = [
-    'foto',
-    'fotoUrl',
-    'fotoURL',
-    'image',
-    'imagem',
-    'imagemUrl',
-    'imagemURL',
-    'url',
-    'secure_url',
-    'secureUrl',
-    'arquivo'
-  ];
-
-  for (const key of candidates) {
-    const val = pet[key];
-    if (val && typeof val === 'string' && (/^(https?:\/\/|data:image\/)/i.test(val) || val.length > 50)) {
-      return val;
-    }
-  }
-
-  for (const k in pet) {
-    const v = pet[k];
-    if (v && typeof v === 'object') {
-      if (typeof v.secure_url === 'string') return v.secure_url;
-      if (typeof v.url === 'string') return v.url;
-    }
-  }
-
-  return null;
-}
-
 function renderizarPets(listaPets) {
   if (!gradeCards) return;
   if (listaPets.length === 0) {
-    gradeCards.innerHTML = '<p class="nenhum-pet" style="grid-column: 1/-1; text-align: center; color: #666; padding: 40px;">Nenhum animal para adoção encontrado com este filtro.</p>';
+    gradeCards.innerHTML = '<p class="nenhum-pet" style="grid-column: 1/-1; text-align: center; color: #666; padding: 40px;">Nenhum animal para adoção encontrado.</p>';
     return;
   }
 
@@ -78,9 +65,9 @@ function filtrarPets(termo) {
   const texto = termo.trim().toLowerCase();
   if (!texto) return pets;
   return pets.filter((pet) => {
-    return [pet.nome, pet.nomeAnimal, pet.cidade, pet.raca, pet.especie, pet.descricao]
+    return [pet.nome, pet.nomeAnimal, pet.cidade, pet.raca, pet.especie, pet.descricaoAnimal, pet.descricao]
       .filter(Boolean)
-      .some((valor) => valor.toLowerCase().includes(texto));
+      .some((valor) => String(valor).toLowerCase().includes(texto));
   });
 }
 
@@ -106,15 +93,17 @@ function montarDetalhes(pet) {
   const nome = pet.nome || pet.nomeAnimal || 'Pet sem nome';
   const especie = pet.especie || 'Não informado';
   const raca = pet.raca || 'Não informado';
-  const idade = pet.idade ? `${pet.idade} ano(s)` : 'Não informado';
+  const idade = pet.idade !== undefined ? `${pet.idade} ano(s)` : 'Não informado';
   const sexo = pet.sexo || 'Não informado';
   const cidade = pet.cidade || 'Não informado';
-  const vacinado = pet.vacinado || 'Não informado';
-  const castrado = pet.castrado || 'Não informado';
-  const saude = pet.problemasHealth || 'Nenhum problema informado';
-  const doador = pet.nomeDoador || pet.contato || 'Responsável pelo pet';
-  const telefone = pet.telefone || pet.contato || 'Não informado';
-  const descricao = pet.descricao || 'Sem descrição cadastrada.';
+  
+  const vacinado = pet.vacinado === true ? 'Sim' : (pet.vacinado === false ? 'Não' : (pet.vacinado || 'Não informado'));
+  const castrado = pet.castrado === true ? 'Sim' : (pet.castrado === false ? 'Não' : (pet.castrado || 'Não informado'));
+  
+  const saude = pet.cuidados || pet.problemasHealth || 'Nenhum problema informado';
+  const doador = pet.nomeResponsvel || pet.nomeDoador || pet.contato || 'Responsável pelo pet';
+  const telefone = pet.numeroTelefone || pet.telefone || pet.contato || 'Não informado';
+  const descricao = pet.descricaoAnimal || pet.descricao || 'Sem descrição cadastrada.';
 
   return `
     <img src="${imagem}" alt="Foto de ${nome}" style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 12px; margin-bottom: 16px;">
@@ -143,7 +132,7 @@ function montarDetalhes(pet) {
 }
 
 function abrirDetalhesPet(petId) {
-  const pet = pets.find((item) => item.id === petId);
+  const pet = pets.find((item) => String(item.id) === String(petId));
   if (!pet || !modalConteudo) return;
   modalConteudo.innerHTML = montarDetalhes(pet);
   abrirModal();
@@ -173,40 +162,23 @@ if (modalDetalhes) {
   });
 }
 
-async function carregarPets() {
+function carregarPetsDoFirebaseEmTempoReal() {
   if (!gradeCards) return;
-  gradeCards.innerHTML = '<p class="carregando-pets" style="grid-column: 1/-1; text-align: center; color: #666; padding: 40px;">Carregando animais para adoção...</p>';
-
-  try {
-    let lista = [];
-
-    // Tenta carregar da coleção 'pets' (usada no admin)
-    try {
-      const snapPets = await getDocs(collection(db, 'pets'));
-      lista = snapPets.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
-    } catch (e1) {
-      console.warn('Coleção pets não encontrada, tentando fallback...', e1);
-    }
-
-    // Se estiver vazia, tenta a coleção 'pets'
-    if (lista.length === 0) {
-      try {
-        const snapPerdidos = await getDocs(collection(db, 'pets'));
-        lista = snapPerdidos.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
-      } catch (e2) {
-        console.warn('Coleção pets não encontrada:', e2);
-      }
-    }
-
-    pets = lista;
-    // Ordena por nome
-    pets.sort((a, b) => (a.nome || a.nomeAnimal || '').localeCompare(b.nome || b.nomeAnimal || ''));
-
+  onSnapshot(collection(db, "animais"), (querySnapshot) => {
+    pets = [];
+    querySnapshot.forEach((docSnap) => {
+      pets.push({
+        id: docSnap.id,
+        ...docSnap.data()
+      });
+    });
     renderizarPets(pets);
-  } catch (erro) {
-    console.error('Erro ao carregar pets:', erro);
-    gradeCards.innerHTML = '<p class="erro-pets" style="grid-column: 1/-1; text-align: center; color: #dc3545; padding: 40px;">Não foi possível carregar os animais no momento.</p>';
-  }
+  }, (error) => {
+    console.error("Erro ao carregar animais do Firebase:", error);
+    if (gradeCards) {
+      gradeCards.innerHTML = '<p class="nenhum-pet" style="grid-column: 1/-1; text-align: center; color: #d9534f; padding: 40px;">Erro ao carregar animais do Firebase.</p>';
+    }
+  });
 }
 
 if (buscaForm && buscaInput) {
@@ -220,4 +192,6 @@ if (buscaForm && buscaInput) {
   });
 }
 
-carregarPets();
+document.addEventListener('DOMContentLoaded', () => {
+  carregarPetsDoFirebaseEmTempoReal();
+});

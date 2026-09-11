@@ -1,6 +1,3 @@
-import { db } from './firebase.js';
-import { collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js';
-
 const inputBusca = document.querySelector('.caixa-busca input');
 const botaoBusca = document.querySelector('.caixa-busca button');
 const resultadosBusca = document.getElementById('resultadosBusca');
@@ -70,20 +67,11 @@ function configurarBusca() {
   });
 }
 
-async function carregarPets() {
-  try {
-    const colecaoPets = collection(db, 'pets_perdidos');
-    const consulta = query(colecaoPets, orderBy('nome'));
-    const snapshot = await getDocs(consulta);
-    petsCarregados = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    renderizarResultados(petsCarregados);
-  } catch (erro) {
-    console.error('Erro ao carregar pets:', erro);
-    if (resultadosBusca) {
-      resultadosBusca.innerHTML = '<p class="erro-resultado">Não foi possível carregar os pets no momento.</p>';
-    }
-  }
+function carregarPets() {
+  renderizarResultados(petsCarregados);
 }
 
-carregarPets();
-configurarBusca();
+document.addEventListener('DOMContentLoaded', () => {
+  carregarPets();
+  configurarBusca();
+});

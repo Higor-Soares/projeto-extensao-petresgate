@@ -84,6 +84,10 @@
 
                     <label for="foto">Foto do animal *</label>
                     <input type="file" id="foto" name="foto" accept="image/*" required>
+                    <div id="previewFotoContainer" style="margin-top: 8px; display: none; align-items: center; gap: 12px;">
+                        <img id="previewFoto" src="" alt="Prévia da foto" style="width: 70px; height: 70px; object-fit: cover; border-radius: 10px; border: 1.5px solid #e0e0e0;">
+                        <span style="font-size: 0.9rem; color: #555;">Prévia da foto selecionada</span>
+                    </div>
 
                     <h3>Informações de Saúde</h3>
 
@@ -141,9 +145,7 @@
             </section>
         </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase.js?v=4"></script>
-    <script type="module" src="js/cadastrar-animal.js?v=4"></script>
+    <script type="module" src="js/cadastrar-animal.js"></script>
 </body>
 
 </html>

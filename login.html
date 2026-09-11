@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        window.location.href = 'admin.html';
+    </script>
 </head>
+
 <body>
     <div class="container-site">
         <div class="backdrop-menu" id="backdropMenu"></div>
@@ -24,17 +29,15 @@
                 <span></span>
                 <span></span>
             </button>
-            <nav class="menu" id="menuPrincipal">
-                <a href="index.html">Início</a>
-                <a href="cadastrar-animal.html">Doar Animal para Adoção</a>
-                <a href="doacao-dinheiro.html">Como Ajudar</a>
-            </nav>
         </header>
         <main>
             <section class="secao-formulario">
                 <h1>Área Administrativa</h1>
-                <p class="subtitulo" style="text-align: center; color: #666; margin-bottom: 20px;">Acesso restrito para administradores</p>
-                <div id="mensagemErro" class="mensagem-erro-login" style="display: none; color: #d9534f; background: #fdf7f7; padding: 12px; border: 1.5px solid #d9534f; border-radius: 10px; font-size: 0.95rem; margin-bottom: 16px; text-align: center; font-weight: 500;"></div>
+                <p class="subtitulo" style="text-align: center; color: #666; margin-bottom: 20px;">Acesso restrito para
+                    administradores</p>
+                <div id="mensagemErro" class="mensagem-erro-login"
+                    style="display: none; color: #d9534f; background: #fdf7f7; padding: 12px; border: 1.5px solid #d9534f; border-radius: 10px; font-size: 0.95rem; margin-bottom: 16px; text-align: center; font-weight: 500;">
+                </div>
                 <form class="form-login" id="formLogin">
                     <label for="email">E-mail</label>
                     <input type="email" id="email" name="email" placeholder="admin@petresgate.com" required>
@@ -47,12 +50,30 @@
             </section>
         </main>
         <footer class="rodape">
-            <div class="rodape-esquerda">Contato</div>
-            <div class="rodape-centro">Direitos autorais</div>
+            <div class="rodape-esquerda">
+                <a href="https://www.instagram.com/resgatandoanjostatui/" target="_blank" rel="noopener noreferrer" class="link-instagram">
+                    <span class="icone-instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </span>
+                    <span>@resgatandoanjostatui</span>
+                </a>
+            </div>
+            <div class="rodape-centro">© Resgatando Anjos Tatuí</div>
             <div class="rodape-direita">
-                <span class="icone"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a7.5 7.5 0 0 1 13 0"/></svg></span>
-                <span class="icone"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 15h8M8 12h8M8 9h8"/></svg></span>
-                <span class="icone"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8a6 6 0 0 1-8 0"/></svg></span>
+                <a href="https://www.instagram.com/resgatandoanjostatui/" target="_blank" rel="noopener noreferrer" class="link-instagram" title="Siga-nos no Instagram">
+                    <span class="icone-instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </span>
+                    <span>Instagram</span>
+                </a>
             </div>
         </footer>
     </div>
@@ -122,4 +143,5 @@
     observer.observe(menu, { attributes: true });
 </script>
 <script type="module" src="js/login.js"></script>
+
 </html>

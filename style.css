@@ -261,6 +261,43 @@ body {
     vertical-align: middle;
 }
 
+.link-instagram {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #e1306c;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(225, 48, 108, 0.08);
+}
+
+.link-instagram:hover {
+    background: rgba(225, 48, 108, 0.16);
+    transform: translateY(-2px);
+    color: #c13584;
+}
+
+.link-instagram .icone-instagram {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+    border-radius: 50%;
+}
+
+.link-instagram .icone-instagram svg {
+    width: 15px;
+    height: 15px;
+    stroke: #ffffff;
+}
+
 .botao-menu-mobile {
     display: none;
     flex-direction: column;

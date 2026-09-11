@@ -1,18 +1,51 @@
-import { db } from './firebase.js';
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { db, collection, addDoc } from './firebase-config.js';
+
+// Função para comprimir a imagem antes do upload
+function comprimirImagem(file, maxWidth = 800, quality = 0.75) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > maxWidth) {
+                    height = Math.round((height * maxWidth) / width);
+                    width = maxWidth;
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/jpeg', quality));
+            };
+            img.onerror = () => resolve(e.target.result);
+            img.src = e.target.result;
+        };
+        reader.onerror = () => resolve(null);
+        reader.readAsDataURL(file);
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('formAnimal');
     const inputFoto = document.getElementById('foto');
-    let fotoBase64 = '';
+    const previewFotoContainer = document.getElementById('previewFotoContainer');
+    const previewFoto = document.getElementById('previewFoto');
+    let fotoArquivo = null;
 
     if (inputFoto) {
         inputFoto.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
+                fotoArquivo = file;
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    fotoBase64 = event.target.result;
+                    if (previewFoto) previewFoto.src = event.target.result;
+                    if (previewFotoContainer) previewFotoContainer.style.display = 'flex';
                 };
                 reader.readAsDataURL(file);
             }
@@ -23,80 +56,57 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const formData = new FormData(form);
             const btnSubmit = form.querySelector('button[type="submit"]');
             
             if (btnSubmit) {
                 btnSubmit.disabled = true;
-                btnSubmit.textContent = 'Enviando...';
+                btnSubmit.textContent = 'Enviando ao Firebase...';
             }
 
             try {
-                let fotoUrl = fotoBase64 || 'https://images.unsplash.com/photo-1548199973-03fb7c89d4f2?auto=format&fit=crop&w=400&q=80';
-
-                // Fazer upload da imagem no Supabase Storage se um arquivo foi selecionado
-                if (inputFoto && inputFoto.files && inputFoto.files[0]) {
-                    const file = inputFoto.files[0];
-                    const fileExt = file.name.split('.').pop();
-                    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-                    const filePath = `pets/${fileName}`;
-
-                    if (window.supabaseClient) {
-                        const { data: uploadData, error: uploadError } = await window.supabaseClient.storage
-                            .from('fotos-animais')
-                            .upload(filePath, file);
-
-                        if (!uploadError) {
-                            const { data: urlData } = window.supabaseClient.storage
-                                .from('fotos-animais')
-                                .getPublicUrl(filePath);
-
-                            if (urlData && urlData.publicUrl) {
-                                fotoUrl = urlData.publicUrl;
-                            }
-                        }
-                    }
+                let fotoUrlFinal = 'https://images.unsplash.com/photo-1548199973-03fb7c89d4f2?auto=format&fit=crop&w=400&q=80';
+                
+                if (fotoArquivo) {
+                    fotoUrlFinal = await comprimirImagem(fotoArquivo, 800, 0.75);
                 }
 
-                // Payload estrito conforme colunas existentes na tabela 'animais' do Supabase
+                const vacinadoVal = document.getElementById('vacinado').value;
+                const castradoVal = document.getElementById('castrado').value;
+
+                // Objeto com a estrutura EXATA do Firestore (coleção "animais")
                 const dadosAnimal = {
-                    nome: formData.get('nomeAnimal') || '',
-                    especie: formData.get('especie') || '',
-                    raca: formData.get('raca') || '',
-                    idade_anos: parseFloat(formData.get('idade')) || 0,
-                    sexo: formData.get('sexo') || '',
-                    foto_url: fotoUrl,
-                    descricao: formData.get('descricao') || '',
-                    vacinado: formData.get('vacinado') === 'sim' || formData.get('vacinado') === 'Sim',
-                    castrado: formData.get('castrado') === 'sim' || formData.get('castrado') === 'Sim',
-                    problemas_saude: formData.get('problemasHealth') || null,
-                    nome_responsavel: formData.get('nomeDoador') || '',
-                    telefone_whatsapp: formData.get('telefone') || '',
-                    cidade: formData.get('cidade') || '',
-                    status: 'disponivel'
+                    nome: document.getElementById('nomeAnimal').value.trim(),
+                    especie: document.getElementById('especie').value.trim(),
+                    raca: document.getElementById('raca').value.trim(),
+                    idade: Number(document.getElementById('idade').value) || 0,
+                    sexo: document.getElementById('sexo').value.trim(),
+                    cidade: document.getElementById('cidade').value.trim(),
+                    descricaoAnimal: document.getElementById('descricao').value.trim(),
+                    cuidados: document.getElementById('problemasHealth').value.trim(),
+                    vacinado: vacinadoVal === 'sim' || vacinadoVal === 'true' || vacinadoVal === true,
+                    castrado: castradoVal === 'sim' || castradoVal === 'true' || castradoVal === true,
+                    fotoUrl: fotoUrlFinal,
+                    nomeResponsvel: document.getElementById('nomeDoador').value.trim(),
+                    numeroTelefone: document.getElementById('telefone').value.trim(),
+                    criadoEm: new Date().toISOString()
                 };
 
-                if (window.supabaseClient) {
-                    const { data, error: dbError } = await window.supabaseClient
-                        .from('animais')
-                        .insert([dadosAnimal]);
+                // Salva no Firebase Firestore na coleção "animais"
+                await addDoc(collection(db, "animais"), dadosAnimal);
 
-                    if (dbError) {
-                        throw new Error(dbError.message);
-                    }
-                }
-
-                alert('✓ Animal cadastrado com sucesso no banco de dados Supabase!');
+                alert('✓ Animal cadastrado no Firebase com sucesso!');
+                mostrarMensagemSucesso();
                 form.reset();
-                fotoBase64 = '';
+                fotoArquivo = null;
+                if (previewFotoContainer) previewFotoContainer.style.display = 'none';
                 
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 2000);
 
             } catch (error) {
-                console.error('Erro ao salvar no Supabase:', error);
-                alert('❌ Falha ao cadastrar animal no Supabase: ' + (error.message || error));
+                console.error('Erro ao enviar para o Firebase:', error);
+                alert('❌ Falha ao cadastrar animal no Firebase: ' + (error.message || error));
             } finally {
                 if (btnSubmit) {
                     btnSubmit.disabled = false;
@@ -107,48 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function validarFormulario(dados) {
-    let mensagensErro = [];
-    
-    if (!dados.nomeAnimal || dados.nomeAnimal.trim() === '') {
-        mensagensErro.push('Nome do animal é obrigatório');
-    }
-    if (!dados.especie || dados.especie === '') {
-        mensagensErro.push('Espécie do animal é obrigatória');
-    }
-    if (!dados.raca || dados.raca.trim() === '') {
-        mensagensErro.push('Raça/Tipo é obrigatório');
-    }
-    if (!dados.idade || dados.idade < 0) {
-        mensagensErro.push('Idade válida é obrigatória');
-    }
-    if (!dados.nomeDoador || dados.nomeDoador.trim() === '') {
-        mensagensErro.push('Seu nome é obrigatório');
-    }
-    if (!dados.telefone || dados.telefone.trim() === '') {
-        mensagensErro.push('Telefone é obrigatório');
-    }
-    if (!dados.email || !validarEmail(dados.email)) {
-        mensagensErro.push('Email válido é obrigatório');
-    }
-    if (!dados.cidade || dados.cidade.trim() === '') {
-        mensagensErro.push('Cidade é obrigatória');
-    }
-    
-    if (mensagensErro.length > 0) {
-        alert('Erro ao validar formulário:\n\n' + mensagensErro.join('\n'));
-        return false;
-    }
-    return true;
-}
-
-function validarEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
-
 function mostrarMensagemSucesso() {
     const containerFormulario = document.querySelector('.secao-formulario');
+    if (!containerFormulario) return;
     const divSucesso = document.createElement('div');
     divSucesso.className = 'mensagem-sucesso';
     divSucesso.style.cssText = `
@@ -161,7 +132,7 @@ function mostrarMensagemSucesso() {
         text-align: center;
         font-weight: 600;
     `;
-    divSucesso.textContent = '✓ Animal cadastrado com sucesso! Redirecionando...';
+    divSucesso.textContent = '✓ Animal cadastrado no Firebase com sucesso! Redirecionando...';
     containerFormulario.insertBefore(divSucesso, containerFormulario.firstChild);
 }
 
@@ -184,3 +155,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
