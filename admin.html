@@ -463,21 +463,63 @@
 
         <main>
             <!-- TELA DE LOGIN DENTRO DO ADMIN -->
-            <section class="secao-formulario" id="secaoLoginAdmin" style="display: none;">
-                <h1>Área Administrativa</h1>
-                <p class="subtitulo" style="text-align: center; color: #666; margin-bottom: 20px;">Acesso restrito para administradores</p>
-                <div id="mensagemErro" class="mensagem-erro-login"
-                    style="display: none; color: #d9534f; background: #fdf7f7; padding: 12px; border: 1.5px solid #d9534f; border-radius: 10px; font-size: 0.95rem; margin-bottom: 16px; text-align: center; font-weight: 500;">
+            <section class="secao-formulario login-card" id="secaoLoginAdmin" style="display: none;">
+                <div class="login-header">
+                    <div class="login-badge">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h1>Área Administrativa</h1>
+                    <p class="subtitulo">Acesso restrito para administradores do sistema</p>
                 </div>
+
+                <div id="mensagemErro" class="mensagem-erro-login" style="display: none;"></div>
+
                 <form class="form-login" id="formLogin">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="admin@petresgate.com" required>
+                    <div class="campo-grupo">
+                        <label for="email">E-mail</label>
+                        <div class="input-com-icone">
+                            <svg class="icone-input" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <input type="email" id="email" name="email" placeholder="admin@petresgate.com" required autocomplete="email">
+                        </div>
+                    </div>
 
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                    <div class="campo-grupo">
+                        <div class="label-linha">
+                            <label for="senha">Senha</label>
+                            <a href="nova-senha.html" class="link-esqueceu-senha">Esqueceu a senha?</a>
+                        </div>
+                        <div class="input-com-icone">
+                            <svg class="icone-input" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required autocomplete="current-password">
+                            <button type="button" class="btn-toggle-senha" id="btnToggleSenha" aria-label="Mostrar ou ocultar senha" title="Mostrar/Ocultar senha">
+                                <svg class="icone-olho" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
 
-                    <button type="submit" id="botaoEntrar">Entrar no Painel Admin</button>
+                    <button type="submit" id="botaoEntrar" class="btn-login-submit">
+                        <span>Entrar no Painel</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
                 </form>
+
+                <div class="login-rodape-links">
+                    <a href="index.html" class="link-voltar-home">← Voltar ao site público</a>
+                </div>
             </section>
 
             <!-- PAINEL ADMINISTRATIVO (CONTEÚDO PROTEGIDO) -->
