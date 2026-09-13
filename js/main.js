@@ -96,17 +96,16 @@ function montarDetalhes(pet) {
   const idade = pet.idade !== undefined ? `${pet.idade} ano(s)` : 'Não informado';
   const sexo = pet.sexo || 'Não informado';
   const cidade = pet.cidade || 'Não informado';
-  
+
   const vacinado = pet.vacinado === true ? 'Sim' : (pet.vacinado === false ? 'Não' : (pet.vacinado || 'Não informado'));
   const castrado = pet.castrado === true ? 'Sim' : (pet.castrado === false ? 'Não' : (pet.castrado || 'Não informado'));
-  
+
   const saude = pet.cuidados || pet.problemasHealth || 'Nenhum problema informado';
   const doador = pet.nomeResponsvel || pet.nomeDoador || pet.contato || 'Responsável pelo pet';
   const telefone = pet.numeroTelefone || pet.telefone || pet.contato || 'Não informado';
   const descricao = pet.descricaoAnimal || pet.descricao || 'Sem descrição cadastrada.';
 
   return `
-    <img src="${imagem}" alt="Foto de ${nome}" style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 12px; margin-bottom: 16px;">
     <h2 style="margin: 0 0 10px 0; color: #181818;">${nome}</h2>
     <p style="margin-bottom: 16px; color: #444; line-height: 1.5;">${descricao}</p>
     <div class="linha" style="display: flex; gap: 20px; margin-bottom: 10px;">

@@ -30,7 +30,7 @@ function comprimirImagem(file, maxWidth = 800, quality = 0.75) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('formAnimal');
     const inputFoto = document.getElementById('foto');
     const previewFotoContainer = document.getElementById('previewFotoContainer');
@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let fotoArquivo = null;
 
     if (inputFoto) {
-        inputFoto.addEventListener('change', function(e) {
+        inputFoto.addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (file) {
                 fotoArquivo = file;
                 const reader = new FileReader();
-                reader.onload = function(event) {
+                reader.onload = function (event) {
                     if (previewFoto) previewFoto.src = event.target.result;
                     if (previewFotoContainer) previewFotoContainer.style.display = 'flex';
                 };
@@ -51,13 +51,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     if (form) {
-        form.addEventListener('submit', async function(e) {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const btnSubmit = form.querySelector('button[type="submit"]');
-            
+
             if (btnSubmit) {
                 btnSubmit.disabled = true;
                 btnSubmit.textContent = 'Enviando ao Firebase...';
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             try {
                 let fotoUrlFinal = 'https://images.unsplash.com/photo-1548199973-03fb7c89d4f2?auto=format&fit=crop&w=400&q=80';
-                
+
                 if (fotoArquivo) {
                     fotoUrlFinal = await comprimirImagem(fotoArquivo, 800, 0.75);
                 }
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.reset();
                 fotoArquivo = null;
                 if (previewFotoContainer) previewFotoContainer.style.display = 'none';
-                
+
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 2000);
@@ -137,10 +137,10 @@ function mostrarMensagemSucesso() {
 }
 
 // Formatador de Telefone
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const inputTelefone = document.getElementById('telefone');
     if (inputTelefone) {
-        inputTelefone.addEventListener('input', function(e) {
+        inputTelefone.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 0) {
                 if (value.length <= 2) {

@@ -43,10 +43,13 @@
 
         .modal-detalhes-conteudo {
             width: 100%;
-            max-width: 700px;
+            max-width: 620px;
+            max-height: 90vh;
             background: #fff;
             border-radius: 18px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
             box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
         }
 
@@ -54,9 +57,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 24px;
+            padding: 16px 24px;
             border-bottom: 1px solid #eee;
             background: #fafafa;
+            flex-shrink: 0;
         }
 
         .modal-detalhes-cabecalho h3 {
@@ -67,22 +71,31 @@
         .modal-detalhes-cabecalho button {
             border: none;
             background: transparent;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             cursor: pointer;
             color: #333;
+            line-height: 1;
         }
 
         .modal-detalhes-body {
-            padding: 24px;
-            display: grid;
-            gap: 18px;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            max-height: calc(90vh - 60px);
         }
 
         .modal-detalhes-body img {
             width: 100%;
-            border-radius: 14px;
-            object-fit: cover;
-            max-height: 360px;
+            height: 200px;
+            max-height: 200px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 4px;
+            flex-shrink: 0;
         }
 
         .modal-detalhes-body p {

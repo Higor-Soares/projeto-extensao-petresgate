@@ -1,10 +1,10 @@
-import { 
-    db, 
-    collection, 
-    getDocs, 
-    addDoc, 
-    updateDoc, 
-    deleteDoc, 
+import {
+    db,
+    collection,
+    getDocs,
+    addDoc,
+    updateDoc,
+    deleteDoc,
     doc,
     onSnapshot,
     auth,
@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ESCUTADOR EM TEMPO REAL VIA FIREBASE ONSNAPSHOT (CARREGAMENTO INSTANTÂNEO) ---
     function carregarAnimaisAdminEmTempoReal() {
         if (!tabelaCorpo) return;
-        
+
         // Escutador em tempo real (cache local ultra rápido + atualizações automáticas)
         unsubscribeRealtime = onSnapshot(collection(db, "animais"), (querySnapshot) => {
             listaPetsCache = [];
