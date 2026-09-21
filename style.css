@@ -234,6 +234,10 @@ body {
 
 .rodape-esquerda {
     text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .rodape-centro {
@@ -242,6 +246,11 @@ body {
 
 .rodape-direita {
     text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .rodape .icone {
@@ -296,6 +305,43 @@ body {
     width: 15px;
     height: 15px;
     stroke: #ffffff;
+}
+
+.link-facebook {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #1877f2;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(24, 119, 242, 0.08);
+}
+
+.link-facebook:hover {
+    background: rgba(24, 119, 242, 0.16);
+    transform: translateY(-2px);
+    color: #0b62d4;
+}
+
+.link-facebook .icone-facebook {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: #1877f2;
+    color: #fff;
+    border-radius: 50%;
+}
+
+.link-facebook .icone-facebook svg {
+    width: 15px;
+    height: 15px;
+    fill: #ffffff;
 }
 
 .botao-menu-mobile {
@@ -808,18 +854,6 @@ body {
     padding: 8px 10px;
     border-radius: 8px;
     transition: background 0.2s;
-}
-
-.barra-alfabeto a:hover {
-    background: #dbeeff;
-    color: #13397a;
-}
-
-font-weight: 600;
-font-size: 1.1rem;
-padding: 8px 10px;
-border-radius: 8px;
-transition: background 0.2s;
 }
 
 .barra-alfabeto a:hover {
