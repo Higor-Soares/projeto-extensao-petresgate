@@ -282,6 +282,8 @@ body {
     padding: 6px 14px;
     border-radius: 20px;
     background: rgba(225, 48, 108, 0.08);
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .link-instagram:hover {
@@ -319,6 +321,8 @@ body {
     padding: 6px 14px;
     border-radius: 20px;
     background: rgba(24, 119, 242, 0.08);
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .link-facebook:hover {
@@ -532,7 +536,31 @@ body {
     }
 }
 
+@media (max-width: 768px) {
+    .rodape {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        padding: 24px 18px;
+    }
+
+    .rodape-esquerda,
+    .rodape-centro,
+    .rodape-direita {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+}
+
 @media (max-width: 480px) {
+    .rodape {
+        padding: 20px 12px;
+        font-size: 0.95rem;
+    }
+
     .cabecalho {
         padding: 12px 12px;
     }
